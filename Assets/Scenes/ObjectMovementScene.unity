@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 273321750}
   - component: {fileID: 273321756}
   m_Layer: 0
-  m_Name: Machine
+  m_Name: LiquidToGas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
