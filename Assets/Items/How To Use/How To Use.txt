@@ -1,0 +1,14 @@
+
+Demo assete bakın, orada demo olarak yapılmış bir item var. 
+
+Item Sprite, kitapta önizleme olarak kullanılacak 
+
+Default Type, maddenin normal halini tutuyor. Örnek olarak su --> Sıvı
+
+Diğer 'flag' lar maddenin diğer hallere geçip geçemediğini belirliyor.
+Örnek olarak "Liquid Allowed" flagı maddenin sıvı olup olamayacğını kontrol ediyor.
+
+Material, itemin sıvı, gaz, toz halde hangi materyalde olacağını gösteriyor.
+Mesh ise itemin katı halde nasıl görüneceğini gösteriyor.
+
+Gerektikçe bunlar güncellenecek

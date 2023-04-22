@@ -5,27 +5,31 @@ using UnityEngine.InputSystem;
 
 public class ObjectHolder : MonoBehaviour
 {
-    [Header("In-Game data")]
-    [SerializeField] GameObject currentObject = null;
-    [SerializeField] Rigidbody currentBody = null;
+    [Header("In-Game data, don't edit!")]
     [SerializeField] float distanceFromCamera;
     [SerializeField] Vector3 mouseToWorld;
+    public MonoItem currentObject = null;
+    public Rigidbody currentBody = null;
+    public bool holding = false;
 
     [Header("Mouse Data")]
     [SerializeField] Vector2 mousePixels = Vector2.zero;
     [SerializeField] Vector2 mouseChange = Vector2.zero;
-    [SerializeField] bool holding = false;
     [SerializeField] bool clicking = false;
-    
+
     [Header("Camera Distance Data")]
     [SerializeField] float allowedZMin;
     [SerializeField] float allowedZMax;
 
-    [Header("Other Requirements")]
+    [Header("Requirements")]
     [SerializeField] RaycastManager raycastManager;
     [SerializeField] LayerMask holdableMask;
     [SerializeField] Camera cameraObject;
     [SerializeField] float forcePower;
+    [SerializeField] float closeDistanceForce;
+    [SerializeField] float regularDistance;
+    [SerializeField] float closeDistance;
+    [SerializeField] float zAxisMultiplier;
 
     public void GetMousePos(InputAction.CallbackContext context){
         Vector2 newValue = context.ReadValue<Vector2>();
@@ -48,7 +52,7 @@ public class ObjectHolder : MonoBehaviour
     }
 
     public void GetMiddleMouse(InputAction.CallbackContext context){
-        int y = (int)context.ReadValue<Vector2>().y;
+        float y = System.Math.Sign(context.ReadValue<Vector2>().y) * zAxisMultiplier;
         distanceFromCamera = Mathf.Clamp(distanceFromCamera + y,allowedZMin,allowedZMax);
     }
 
@@ -67,7 +71,12 @@ public class ObjectHolder : MonoBehaviour
 
     public void GetSelectedObject(){   
         RaycastHit[] value = null;
-        currentObject = raycastManager.GetObjectFromCamera(mouseToWorld,out value,Mathf.Infinity,holdableMask);
+        GameObject current = raycastManager.GetObjectFromCamera(mouseToWorld,out value,Mathf.Infinity,holdableMask);
+        
+        if(current == null)
+            return;
+        
+        current.TryGetComponent<MonoItem>(out currentObject);
         holding = currentObject != null;
 
         if(holding){
@@ -81,13 +90,17 @@ public class ObjectHolder : MonoBehaviour
         Vector2 directionV2 = ((Vector2)mouseToWorld - (Vector2)currentObject.transform.position);
 
         Vector2 direction = directionV2.normalized;
-        Vector2 force = forcePower * direction;
+        Vector2 force = Vector2.zero;
         
         float distance = directionV2.magnitude;
 
-        if(distance > 0.5f)
-            currentBody.AddForce(new Vector3(force.x,force.y,0));
-        
+        if(distance < regularDistance && distance > closeDistance)
+            force = forcePower * direction;
+
+        else if(distance > regularDistance)
+            force = closeDistanceForce * direction;
+
+        currentBody.AddForce(new Vector3(force.x,force.y,0));
         currentBody.MovePosition(new Vector3(currentBody.position.x,currentBody.position.y,distanceFromCamera));
     }
 
