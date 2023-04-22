@@ -24,7 +24,7 @@ public class ActiveItemGetter : MonoBehaviour
     }
 
     private void Update(){
-        if(holder.holding){
+        if(holder.currentObject != null && machine.occupied == false){
             float distance = GetDistance();
             if(distance < minDistanceToTrigger)
                 currentItem = holder.currentObject;
