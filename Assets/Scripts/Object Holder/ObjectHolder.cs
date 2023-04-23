@@ -44,10 +44,11 @@ public class ObjectHolder : MonoBehaviour
             GetSelectedObject();
         
         if(clicking == false && holding){
+            holding = false;
+
             currentBody.useGravity = true;
             currentObject = null;
             currentBody = null;
-            holding = false;
         }
     }
 

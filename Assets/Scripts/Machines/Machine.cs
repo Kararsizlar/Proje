@@ -10,7 +10,7 @@ public class Machine : MonoBehaviour
     [SerializeField] float timeToConvert;
 
     [Header("In-Game Stats, Don't edit!")]
-    [SerializeField] bool occupied;
+    public bool occupied;
     [SerializeField] MonoItem activeItem;
     [SerializeField] MonoItem outputItem;
 
@@ -22,11 +22,11 @@ public class Machine : MonoBehaviour
     }
 
     public IEnumerator Convert(){
-        yield return new WaitForSeconds(timeToConvert);
-        activeItem.currentState = output;
-        occupied = false;
         outputItem = CreateOutput();
         Destroy(activeItem.gameObject);
+        
+        yield return new WaitForSeconds(timeToConvert);
+        occupied = false;
         activeItem = null;
 
         print($"Converted {activeItem}! new state is {output}.");
