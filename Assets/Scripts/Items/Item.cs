@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/New Item",fileName = "New Item")]
+[CreateAssetMenu(menuName = "Custom/Item",fileName = "New Item")]
 public class Item : ScriptableObject
 {
     public Sprite itemSprite;
@@ -8,7 +8,7 @@ public class Item : ScriptableObject
 
     public ItemFlags possibleStateFlags;
     
-    public Material itemColor;
+    public Material itemMaterial;
     public Mesh solidMesh;
 
 

@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaefb2db0147dd34ca0b48f091fc19f6, type: 3}
-  m_Name: Demo
+  m_Script: {fileID: 11500000, guid: a809dbc78283fe44d8b4355043262a8b, type: 3}
+  m_Name: _Demo Potion
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
-  defaultType: 2
-  possibleStateFlags:
-    dustAllowed: 1
-    gasAllowed: 1
-    liquidAllowed: 1
-    solidAllowed: 1
-  itemColor: {fileID: 0}
-  solidMesh: {fileID: 0}
+  potionName: 
+  recipe:
+  - strength: 0
+    effect: 0
