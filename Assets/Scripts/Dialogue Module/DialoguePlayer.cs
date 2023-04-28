@@ -6,15 +6,17 @@ using TMPro;
 public class DialoguePlayer : MonoBehaviour
 {
     [Header("Debug")]
-    [SerializeField] Dialogue demoText;
+    [SerializeField] Customer customer;
     [SerializeField] bool debug;
 
     [Header("Values")]
     [SerializeField] TextMeshProUGUI dialogueShower;
     [SerializeField] CanvasGroup textCanvas;
-    [SerializeField] float charAddTime;
+    [SerializeField] AudioSource[] customerSources;
     [SerializeField] float timeToNextSentence;
     private Queue<string> dialoguesToShow = new Queue<string>();
+
+    private bool talking;
 
     public void GetNewDialogue(Dialogue dialogue,bool showImmediately){
         
@@ -54,7 +56,9 @@ public class DialoguePlayer : MonoBehaviour
     }
 
     private IEnumerator DialogueShower(string sentence){
-
+        
+        talking = true;
+        StartCoroutine(PlaySoundWhileTalking());
         string currentString = "";
         SetText(currentString);
 
@@ -63,14 +67,37 @@ public class DialoguePlayer : MonoBehaviour
             currentString += character;
             SetText(currentString);
 
-            yield return new WaitForSeconds(charAddTime);
+            yield return new WaitForSeconds(1 / customer.charSpeedPerSecondInDialogueBox);
         }
-
+        
+        talking = false;
         yield return new WaitForSeconds(timeToNextSentence);
+
         if(dialoguesToShow.Count > 0)
             StartCoroutine(DialogueShower(dialoguesToShow.Dequeue()));
         else
             SetActiveTextBox(false);
+    }
+
+    private IEnumerator PlaySoundWhileTalking(){
+        
+        int index = 0;
+        
+        foreach (AudioSource source in customerSources)
+        {
+            source.clip = customer.charSound;        
+        }
+        
+        while (talking)
+        {
+            customerSources[index].Play();
+            index++;
+
+            if(index == customerSources.Length)
+                index = 0;
+
+            yield return new WaitForSeconds(customer.charSoundRepeatRate);
+        }
     }
 
     private IEnumerator Start(){
@@ -78,6 +105,6 @@ public class DialoguePlayer : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         if(debug)
-            GetNewDialogue(demoText,true);
+            GetNewDialogue(customer.customerDialogueAtStart,true);
     }
 }

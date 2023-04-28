@@ -5,16 +5,26 @@ using UnityEngine;
 public class Machine : MonoBehaviour
 {
     [Header("Pre-Game Stats")]
+    public Vector3 outputDistanceToMachine;
     [SerializeField] List<ItemType> allowedStates;
     [SerializeField] ItemType output;
     [SerializeField] float timeToConvert;
+    [SerializeField] ItemGenerator outputGenerator;
+    
 
     [Header("In-Game Stats, Don't edit!")]
     public bool occupied;
+    public MonoItem outputItem;
     [SerializeField] MonoItem activeItem;
-    [SerializeField] MonoItem outputItem;
 
-    private MonoItem CreateOutput(){
+    public GameObject GenerateOutput(){
+        if(occupied)
+            return null;
+
+        return outputGenerator.GiveOutput(this);
+    }
+
+    private MonoItem CreateMono(){
         MonoItem newItem = gameObject.AddComponent<MonoItem>();
         newItem.item = activeItem.item;
         newItem.currentState = output;
@@ -22,7 +32,7 @@ public class Machine : MonoBehaviour
     }
 
     public IEnumerator Convert(){
-        outputItem = CreateOutput();
+        outputItem = CreateMono();
         Destroy(activeItem.gameObject);
         
         yield return new WaitForSeconds(timeToConvert);

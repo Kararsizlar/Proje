@@ -15,6 +15,14 @@ public class RaycastManager : MonoBehaviour
         if(results.Length == 0)
             return null;
         
-        return results[0].collider.gameObject;
+        GameObject clickedObject = results[0].collider.gameObject;
+
+        if(clickedObject.layer == 6)//Holdable
+            return clickedObject;
+        
+        if(clickedObject.layer == 7)//Machine      
+            return clickedObject.GetComponent<Machine>().GenerateOutput();
+        
+        return null; //unreachable, no problems
     }
 }
