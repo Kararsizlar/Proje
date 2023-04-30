@@ -8,7 +8,7 @@ public class ObjectHolder : MonoBehaviour
     [Header("In-Game data, don't edit!")]
     [SerializeField] float distanceFromCamera;
     [SerializeField] Vector3 mouseToWorld;
-    public MonoItem currentObject = null;
+    public Holdable currentObject = null;
     public Rigidbody currentBody = null;
     public bool holding = false;
 
@@ -25,10 +25,7 @@ public class ObjectHolder : MonoBehaviour
     [SerializeField] RaycastManager raycastManager;
     [SerializeField] LayerMask holdableMask;
     [SerializeField] Camera cameraObject;
-    [SerializeField] float forcePower;
-    [SerializeField] float closeDistanceForce;
-    [SerializeField] float regularDistance;
-    [SerializeField] float closeDistance;
+    [SerializeField] float forceMultiplier;
     [SerializeField] float zAxisMultiplier;
 
     public void GetMousePos(InputAction.CallbackContext context){
@@ -76,8 +73,8 @@ public class ObjectHolder : MonoBehaviour
         
         if(current == null)
             return;
-        
-        current.TryGetComponent<MonoItem>(out currentObject);
+
+        current.TryGetComponent<Holdable>(out currentObject);
         holding = currentObject != null;
 
         if(holding){
@@ -94,12 +91,7 @@ public class ObjectHolder : MonoBehaviour
         Vector2 force = Vector2.zero;
         
         float distance = directionV2.magnitude;
-
-        if(distance < regularDistance && distance > closeDistance)
-            force = forcePower * direction;
-
-        else if(distance > regularDistance)
-            force = closeDistanceForce * direction;
+        force = direction * (distance * forceMultiplier);
 
         currentBody.AddForce(new Vector3(force.x,force.y,0));
         currentBody.MovePosition(new Vector3(currentBody.position.x,currentBody.position.y,distanceFromCamera));

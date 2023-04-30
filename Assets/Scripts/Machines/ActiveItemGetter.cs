@@ -10,7 +10,7 @@ public class ActiveItemGetter : MonoBehaviour
     [SerializeField] float minDistanceToTrigger;
     
     [Header("In-Game Data, dont edit!")]
-    [SerializeField] MonoItem currentItem;
+    [SerializeField] Holdable currentItem;
 
     private float GetDistance(){
         Vector3 myPos = transform.position;
@@ -20,11 +20,12 @@ public class ActiveItemGetter : MonoBehaviour
     }
 
     private void TryFeed(MonoItem item){
-        machine.OnNewItem(item);
+        if(item != null)
+            machine.OnNewItem(item);
     }
 
     private void Update(){
-        if(holder.currentObject != null && machine.occupied == false){
+        if(holder.currentObject != null){
             float distance = GetDistance();
             if(distance < minDistanceToTrigger)
                 currentItem = holder.currentObject;
@@ -33,7 +34,7 @@ public class ActiveItemGetter : MonoBehaviour
         }
         else{
             if(currentItem != null)
-                TryFeed(currentItem);
+                TryFeed(currentItem.itemData);
 
             currentItem = null;
         }

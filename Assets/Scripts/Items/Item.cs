@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Custom/Item",fileName = "New Item")]
 public class Item : ScriptableObject
@@ -7,6 +9,7 @@ public class Item : ScriptableObject
     public ItemType defaultType;
 
     public ItemFlags possibleStateFlags;
+    public List<ItemEffect> effects;
     
     public Material itemMaterial;
     public Mesh solidMesh;
