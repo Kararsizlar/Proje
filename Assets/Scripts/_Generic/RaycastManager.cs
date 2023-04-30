@@ -17,11 +17,13 @@ public class RaycastManager : MonoBehaviour
         
         GameObject clickedObject = results[0].collider.gameObject;
 
-        if(clickedObject.layer == 6)//Holdable
+        if(clickedObject.layer == 6 || clickedObject.layer == 8)//Holdable
             return clickedObject;
         
-        if(clickedObject.layer == 7)//Machine      
+        if(clickedObject.layer == 7)
             return clickedObject.GetComponent<Machine>().GenerateOutput();
+
+        
         
         return null; //unreachable, no problems
     }

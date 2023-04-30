@@ -16,7 +16,15 @@ MonoBehaviour:
   levelSelectDialogue: "Kan i\xE7emeyen \u015Fanss\u0131z bir vampir. Ne yaz\u0131kki
     hayat\u0131n\u0131 sahte kan ile s\xFCrd\xFCrmek zorunda. En az\u0131ndan ba\u015Fka
     canl\u0131lara zarar vermeden ya\u015Fayabiliyor."
-  targetPotion: {fileID: 11400000, guid: 81abbbf3e0338fc49976ccfe5ad5dbb3, type: 2}
+  targetPotion:
+    potionName: 
+    items:
+    - strength: 0
+      effect: 1
+    - strength: 0
+      effect: 1
+    - strength: 0
+      effect: 1
   customerDialogueAtStart:
     sentences:
     - "Merhaba dostum!\nUmar\u0131m beni g\xF6rd\xFC\u011F\xFCne sevinmi\u015Fsindir."

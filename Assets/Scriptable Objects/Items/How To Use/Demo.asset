@@ -19,5 +19,10 @@ MonoBehaviour:
     gasAllowed: 1
     liquidAllowed: 1
     solidAllowed: 1
+  effects:
+  - strength: 2
+    effect: 2
+  - strength: 1
+    effect: 3
   itemMaterial: {fileID: 2100000, guid: 2415f7d9cc9694e4dac7ea8946a07b7a, type: 2}
   solidMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
