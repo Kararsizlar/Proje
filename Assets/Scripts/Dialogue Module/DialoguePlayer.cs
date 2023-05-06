@@ -5,24 +5,25 @@ using TMPro;
 
 public class DialoguePlayer : MonoBehaviour
 {
-    [Header("Debug")]
-    [SerializeField] Customer customer;
-    [SerializeField] bool debug;
-
-    [Header("Values")]
+    [Header("Pre-Game Data")]
+    [SerializeField] GameMaster gameMaster;
     [SerializeField] TextMeshProUGUI dialogueShower;
+    [SerializeField] TextMeshProUGUI titleShower;
     [SerializeField] CanvasGroup textCanvas;
     [SerializeField] AudioSource[] customerSources;
     [SerializeField] float timeToNextSentence;
-    private Queue<string> dialoguesToShow = new Queue<string>();
 
+    [Header("In-Game Data, don't edit!")]
+    public Customer currentCustomer;
     private bool talking;
+    private Queue<DialoguePiece> dialoguesToShow = new Queue<DialoguePiece>();
+    private DialoguePiece activeDialoguePiece;
 
     public void GetNewDialogue(Dialogue dialogue,bool showImmediately){
         
-        foreach (string sentence in dialogue.sentences)
+        foreach (DialoguePiece piece in dialogue.sentenceData)
         {
-            dialoguesToShow.Enqueue(sentence);
+            dialoguesToShow.Enqueue(piece);
         }
 
         if(showImmediately)
@@ -34,9 +35,8 @@ public class DialoguePlayer : MonoBehaviour
     }
 
     public void ShowDialogue(){
-        //Some checks will be made here. Not yet, i will just redirect it at the moment.
-
-        StartCoroutine(DialogueShower(dialoguesToShow.Dequeue()));
+        activeDialoguePiece = dialoguesToShow.Dequeue();
+        StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
         SetActiveTextBox(true);
     }
 
@@ -61,22 +61,27 @@ public class DialoguePlayer : MonoBehaviour
         StartCoroutine(PlaySoundWhileTalking());
         string currentString = "";
         SetText(currentString);
+        titleShower.text = activeDialoguePiece.personTalking;
 
         foreach (char character in sentence)
         {
             currentString += character;
             SetText(currentString);
 
-            yield return new WaitForSeconds(1 / customer.charSpeedPerSecondInDialogueBox);
+            yield return new WaitForSeconds(1 / currentCustomer.charSpeedPerSecondInDialogueBox);
         }
         
         talking = false;
         yield return new WaitForSeconds(timeToNextSentence);
 
-        if(dialoguesToShow.Count > 0)
-            StartCoroutine(DialogueShower(dialoguesToShow.Dequeue()));
-        else
+        if(dialoguesToShow.Count > 0){
+            activeDialoguePiece = dialoguesToShow.Dequeue();
+            StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
+        }
+        else{
             SetActiveTextBox(false);
+            gameMaster.SetCutsceneMode(false);
+        }
     }
 
     private IEnumerator PlaySoundWhileTalking(){
@@ -85,7 +90,7 @@ public class DialoguePlayer : MonoBehaviour
         
         foreach (AudioSource source in customerSources)
         {
-            source.clip = customer.charSound;        
+            source.clip = activeDialoguePiece.personClip;
         }
         
         while (talking)
@@ -96,15 +101,7 @@ public class DialoguePlayer : MonoBehaviour
             if(index == customerSources.Length)
                 index = 0;
 
-            yield return new WaitForSeconds(customer.charSoundRepeatRate);
+            yield return new WaitForSeconds(currentCustomer.charSoundRepeatRate);
         }
-    }
-
-    private IEnumerator Start(){
-
-        yield return new WaitForSeconds(3);
-
-        if(debug)
-            GetNewDialogue(customer.customerDialogueAtStart,true);
     }
 }

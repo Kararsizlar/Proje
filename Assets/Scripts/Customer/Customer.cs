@@ -9,10 +9,15 @@ public class Customer : ScriptableObject
     public string customerName;
     [Multiline] public string levelSelectDialogue;
     public Potion targetPotion;
+    public CustomerBodySprites bodySprites;
 
-    [Header("Müşteri diyalog bilgileri")]
+    [Header("Müşteri başlangıç diyalogu")]
     public Dialogue customerDialogueAtStart;
+    [Header("Müşteri son diyalogları")]
+    public Dialogue customerDialogueAtEndFail;
+    public Dialogue customerDialogueAtEndMid;
+    public Dialogue customerDialogueAtEndSuccess;
+    
     public float charSpeedPerSecondInDialogueBox;
-    public AudioClip charSound;
     public float charSoundRepeatRate;
 }
