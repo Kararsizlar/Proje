@@ -51,6 +51,8 @@ public class Cauldron : Machine
             AddToPotion(newItem.item.effects[0]);
         else
             AddToPotion(newItem.item.effects);
+
+        Destroy(newItem.gameObject);
     }
 
     public override GameObject GenerateOutput()

@@ -5,6 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue
 {
-    [Multiline]
-    public List<string> sentences;
+    public List<DialoguePiece> sentenceData;
+    public AudioClip defaultClip;
+}
+
+[System.Serializable]
+public class DialoguePiece{
+    [Multiline] public string sentence;
+    public string personTalking;
+    public AudioClip personClip;
 }
