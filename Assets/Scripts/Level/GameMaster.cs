@@ -7,10 +7,11 @@ public class GameMaster : MonoBehaviour
     [Header("Pre-Game Data")]
     [SerializeField] LevelLoader loader;
     [SerializeField] DialoguePlayer dialoguePlayer;
-    [SerializeField] GameObject potionCamera;
-    [SerializeField] GameObject customerCamera;
+    [SerializeField] GameObject potionCamera,potionUI;
+    [SerializeField] GameObject customerCamera,customerUI;
 
     [Header("In-Game Data, Don't Edit!")]
+    public Customer customer;
     public bool cutscene;
     public bool potionComplete;
 
@@ -52,11 +53,15 @@ public class GameMaster : MonoBehaviour
 
     public void ShowPotionTable(){
         potionCamera.SetActive(true);
+        potionUI.SetActive(true);
         customerCamera.SetActive(false);
+        customerUI.SetActive(false);
     }
 
     public void ShowCustomer(){
         potionCamera.SetActive(false);
+        potionUI.SetActive(false);
         customerCamera.SetActive(true);
+        customerUI.SetActive(true);
     }
 }

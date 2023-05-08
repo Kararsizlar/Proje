@@ -23,6 +23,7 @@ public class LevelLoader : MonoBehaviour
 
         dialoguePlayer.currentCustomer = customerData;
 
+        gameMaster.customer = customerData;
         gameMaster.OnLoadComplete();
     }
 

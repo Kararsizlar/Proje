@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PotionSuccessCalculator : MonoBehaviour
 {
-    public Potion testTarget;
-    public Potion testInput;
+    public GameMaster target;
+    public PotionContainer currentExport;
 
     [Header("Toplamın 100 olduğundan emin ol!")]
     public SuccessMultipliers multipliers;
@@ -93,8 +93,8 @@ public class PotionSuccessCalculator : MonoBehaviour
         return total;
     }
 
-    private void Start(){
-        CalculateSuccess(testTarget,testInput);
+    public void Calculate(){
+        CalculateSuccess(target.customer.targetPotion,currentExport.potion);
     }
 }
 

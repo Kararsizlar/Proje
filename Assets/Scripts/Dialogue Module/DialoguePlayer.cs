@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using TMPro;
 
@@ -15,9 +16,13 @@ public class DialoguePlayer : MonoBehaviour
 
     [Header("In-Game Data, don't edit!")]
     public Customer currentCustomer;
-    private bool talking;
+    private bool talking,skipping;
     private Queue<DialoguePiece> dialoguesToShow = new Queue<DialoguePiece>();
     private DialoguePiece activeDialoguePiece;
+
+    public void Input_SkipDialogue(InputAction.CallbackContext ctx){
+        skipping = ctx.phase == InputActionPhase.Performed;
+    }
 
     public void GetNewDialogue(Dialogue dialogue,bool showImmediately){
         
@@ -68,12 +73,21 @@ public class DialoguePlayer : MonoBehaviour
             currentString += character;
             SetText(currentString);
 
-            yield return new WaitForSeconds(1 / currentCustomer.charSpeedPerSecondInDialogueBox);
+            if(skipping)
+                yield return new WaitForSeconds(1 / currentCustomer.charSpeedPerSecondInDialogueBox / 5);
+            else
+                yield return new WaitForSeconds(1 / currentCustomer.charSpeedPerSecondInDialogueBox);
         }
         
         talking = false;
-        yield return new WaitForSeconds(timeToNextSentence);
+        
+        if(skipping == false)
+            yield return new WaitForSeconds(timeToNextSentence);
+        
+        NextDialogue();
+    }
 
+    private void NextDialogue(){
         if(dialoguesToShow.Count > 0){
             activeDialoguePiece = dialoguesToShow.Dequeue();
             StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
