@@ -46,5 +46,23 @@ MonoBehaviour:
       personTalking: "\u0130ksirci"
       personClip: {fileID: 8300000, guid: 293b7e8924b7edd4e804b806dabf1bd3, type: 3}
     defaultClip: {fileID: 0}
+  customerDialogueAtEndFail:
+    sentenceData:
+    - sentence: 
+      personTalking: 
+      personClip: {fileID: 0}
+    defaultClip: {fileID: 0}
+  customerDialogueAtEndMid:
+    sentenceData:
+    - sentence: 
+      personTalking: 
+      personClip: {fileID: 0}
+    defaultClip: {fileID: 0}
+  customerDialogueAtEndSuccess:
+    sentenceData:
+    - sentence: 
+      personTalking: 
+      personClip: {fileID: 0}
+    defaultClip: {fileID: 0}
   charSpeedPerSecondInDialogueBox: 22
   charSoundRepeatRate: 0.095
