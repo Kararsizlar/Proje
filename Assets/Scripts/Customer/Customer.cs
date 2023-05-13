@@ -7,9 +7,8 @@ public class Customer : ScriptableObject
 {
     [Header("Müşteri genel bilgileri")]
     public string customerName;
-    [Multiline] public string levelSelectDialogue;
+    public Sprite levelSelectImage;
     public Potion targetPotion;
-    public CustomerBodySprites bodySprites;
 
     [Header("Müşteri başlangıç diyalogu")]
     public Dialogue customerDialogueAtStart;

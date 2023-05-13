@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PotionSuccessCalculator : MonoBehaviour
 {
+    public float successRate;
     public GameMaster target;
     public PotionContainer currentExport;
 
@@ -25,7 +26,6 @@ public class PotionSuccessCalculator : MonoBehaviour
 
         float punishment = diff * pointPerEffect;
         float returnValue = 100 - punishment;
-        print("amount = " + returnValue);
         return 100 - punishment;
     }
 
@@ -49,7 +49,6 @@ public class PotionSuccessCalculator : MonoBehaviour
 
             containBonusPoint = Mathf.Clamp(containBonusPoint,0,containBonusPoint);
             float returnValue = containBonusPoint / (target.items.Count * strengthValues.cointainsBonusPoint) * strengthValues.cointainsBonusPoint;
-            print("bonus = " + returnValue);
             return returnValue;
         }
 
@@ -66,7 +65,6 @@ public class PotionSuccessCalculator : MonoBehaviour
                     return returnValue;
                 }
             }
-            print(effect + " = 0");
             return 0;
         }
 
@@ -80,7 +78,6 @@ public class PotionSuccessCalculator : MonoBehaviour
 
         strengthPoints = strengthPoints / 100 / target.items.Count * (100 - strengthValues.cointainsBonusPoint);
         float returnValue = strengthPoints + existInPotionBonus;
-        print("str = " + returnValue);
         return returnValue;
     }
 
@@ -89,12 +86,11 @@ public class PotionSuccessCalculator : MonoBehaviour
         float strengthPoint = CalculateEffectStrengthSuccess(target,input) * multipliers.effectStrengthRateMultiplier / 100;
         float total = strengthPoint + effectAmountPoint;
 
-        print(target.potionName + " fits " + input.potionName + " by: %" + total);
         return total;
     }
 
     public void Calculate(){
-        CalculateSuccess(target.customer.targetPotion,currentExport.potion);
+        successRate = CalculateSuccess(target.customer.targetPotion,currentExport.potion);
     }
 }
 

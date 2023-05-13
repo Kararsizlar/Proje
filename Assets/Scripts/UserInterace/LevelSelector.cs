@@ -2,32 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelector : MonoBehaviour
 {
-    [SerializeField] CanvasGroup levelAcceptGroup;
     [SerializeField] TMPro.TextMeshProUGUI summaryText;
-    [SerializeField] TMPro.TextMeshProUGUI acceptButtonName;
+    [SerializeField] Image customerImage;
     [SerializeField] CustomerContainer persistentDataContainer;
     [SerializeField] string loadObjectName;
 
     public Customer currentCustomer;
 
-    private void SetCanvasGroup(bool value){       
-        levelAcceptGroup.interactable = value;
-        levelAcceptGroup.blocksRaycasts = value;
-
-        levelAcceptGroup.alpha = value == true ? 1 : 0;
-    }
-
     public void UpdateCanvasNewCustomer(){
-        SetCanvasGroup(true);
-        acceptButtonName.text = $"{currentCustomer.customerName}'ın görevine başla.";
-        summaryText.text = currentCustomer.levelSelectDialogue;
+        summaryText.text = currentCustomer.customerName;
+        customerImage.sprite = currentCustomer.levelSelectImage;
+        customerImage.color = Color.white;
     }
 
     private void Start(){
         persistentDataContainer = GameObject.Find(loadObjectName).GetComponent<CustomerContainer>();
+        if(persistentDataContainer.customer != null)
+            UpdateCanvasNewCustomer();
     }
 
     public void AcceptLevel(){

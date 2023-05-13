@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ActiveItemGetter : MonoBehaviour
+public class ActiveItemGetter : MonoBehaviour , IPointerDownHandler
 {
     [Header("Pre-Game Data")]
     [SerializeField] ObjectHolder holder;
     [SerializeField] Machine machine;
-    [SerializeField] float minDistanceToTrigger;
-    
-    [Header("In-Game Data, dont edit!")]
-    [SerializeField] Holdable currentItem;
 
     private float GetDistance(){
         Vector3 myPos = transform.position;
@@ -24,19 +21,12 @@ public class ActiveItemGetter : MonoBehaviour
             machine.OnNewItem(item);
     }
 
-    private void Update(){
-        if(holder.currentObject != null){
-            float distance = GetDistance();
-            if(distance < minDistanceToTrigger)
-                currentItem = holder.currentObject;
-            else
-                currentItem = null;
-        }
-        else{
-            if(currentItem != null)
-                TryFeed(currentItem.itemData);
-
-            currentItem = null;
-        }
+    public void OnPointerDown(PointerEventData eventData){
+        Holdable currentItem = holder.currentObject;
+        if(currentItem == null)
+            return;
+        else
+            TryFeed(holder.currentObject.itemData);
     }
+    
 }
