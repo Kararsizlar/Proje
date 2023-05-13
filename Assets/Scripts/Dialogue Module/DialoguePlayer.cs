@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialoguePlayer : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class DialoguePlayer : MonoBehaviour
     [SerializeField] TextMeshProUGUI titleShower;
     [SerializeField] CanvasGroup textCanvas;
     [SerializeField] AudioSource[] customerSources;
+    [SerializeField] Image personSprite;
     [SerializeField] float timeToNextSentence;
 
     [Header("In-Game Data, don't edit!")]
@@ -36,6 +38,10 @@ public class DialoguePlayer : MonoBehaviour
     }
 
     public void GetNewDialogue(Dialogue dialogue){
+        foreach (AudioSource clip in customerSources)
+        {
+            clip.clip = null;
+        }
         GetNewDialogue(dialogue,false);
     }
 
@@ -67,6 +73,7 @@ public class DialoguePlayer : MonoBehaviour
         string currentString = "";
         SetText(currentString);
         titleShower.text = activeDialoguePiece.personTalking;
+        personSprite.sprite = activeDialoguePiece.personSprite;
 
         foreach (char character in sentence)
         {
@@ -90,6 +97,7 @@ public class DialoguePlayer : MonoBehaviour
     private void NextDialogue(){
         if(dialoguesToShow.Count > 0){
             activeDialoguePiece = dialoguesToShow.Dequeue();
+            
             StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
         }
         else{

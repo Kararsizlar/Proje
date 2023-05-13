@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class ObjectHolder : MonoBehaviour
 {
     [Header("In-Game data, don't edit!")]
-    [SerializeField] float distanceFromCamera;
     [SerializeField] Vector3 mouseToWorld;
     public Holdable currentObject = null;
     public Rigidbody currentBody = null;
@@ -15,18 +14,13 @@ public class ObjectHolder : MonoBehaviour
     [Header("Mouse Data")]
     [SerializeField] Vector2 mousePixels = Vector2.zero;
     [SerializeField] Vector2 mouseChange = Vector2.zero;
-    [SerializeField] bool clicking = false;
 
-    [Header("Camera Distance Data")]
-    [SerializeField] float allowedZMin;
-    [SerializeField] float allowedZMax;
-
-    [Header("Requirements")]
+    [Header("Pre-Game Data")]
     [SerializeField] RaycastManager raycastManager;
-    [SerializeField] LayerMask holdableMask;
+    [SerializeField] LayerMask holdableMask,ignoreHoldable;
     [SerializeField] Camera cameraObject;
     [SerializeField] float forceMultiplier;
-    [SerializeField] float zAxisMultiplier;
+    [SerializeField] float yExtraHeight;
 
     public void GetMousePos(InputAction.CallbackContext context){
         Vector2 newValue = context.ReadValue<Vector2>();
@@ -35,46 +29,60 @@ public class ObjectHolder : MonoBehaviour
     }
 
     public void GetClick(InputAction.CallbackContext context){
-        clicking = context.started || context.performed;
-
-        if(context.started)
+        if(context.started && holding == false)
             GetSelectedObject();
-        
-        if(clicking == false && holding){
-            holding = false;
-
-            currentBody.useGravity = true;
-            currentObject = null;
-            currentBody = null;
-        }
+        else if(context.started && holding == true)
+            StartCoroutine(LetGoOfObject());
     }
 
-    public void GetMiddleMouse(InputAction.CallbackContext context){
-        float y = System.Math.Sign(context.ReadValue<Vector2>().y) * zAxisMultiplier;
-        distanceFromCamera = Mathf.Clamp(distanceFromCamera + y,allowedZMin,allowedZMax);
+    private IEnumerator LetGoOfObject(){
+        yield return new WaitForEndOfFrame();
+        holding = false;  
+        
+        if(currentBody == null)
+            yield break;
+        
+        currentBody.useGravity = true;
+        currentObject = null;
+        currentBody = null;
     }
 
     private Vector3 GetMousePosWorld(Vector2 input){
-        Vector3 mouseVector3;
-
-        if(currentObject == null)
-            mouseVector3 = new Vector3(input.x,input.y,cameraObject.nearClipPlane);
-        else{
-            float diff = currentObject.transform.position.z - cameraObject.transform.position.z;
-            mouseVector3 = new Vector3(input.x,input.y,diff);
+        
+        Vector3 GetRegularMousePos(){
+            Vector3 v = new Vector3(input.x,input.y,cameraObject.nearClipPlane);
+            return cameraObject.ScreenToWorldPoint(v);
         }
-           
-        return cameraObject.ScreenToWorldPoint(mouseVector3);
+
+        Vector3 GetTargetPosForHolding(){
+            RaycastHit hitInfo = new RaycastHit();
+            Vector3 camPos = cameraObject.transform.position;
+            Vector3 direction = GetRegularMousePos() - camPos;
+            Physics.Raycast(camPos,direction,out hitInfo,Mathf.Infinity,ignoreHoldable);
+
+            Vector3 hitPos = hitInfo.point;
+            Transform hitTransform = hitInfo.transform;
+                
+            return new Vector3(hitPos.x,hitInfo.transform.position.y + yExtraHeight,hitPos.z);
+        }
+
+        Vector3 mouseVector3;
+        if(holding){
+            mouseVector3 = GetTargetPosForHolding();
+            return mouseVector3;
+        }
+        else
+            return GetRegularMousePos();
     }
 
     public void GetSelectedObject(){   
         RaycastHit[] value = null;
         GameObject current = raycastManager.GetObjectFromCamera(mouseToWorld,out value,Mathf.Infinity,holdableMask);
-        
+
         if(current == null)
             return;
 
-        current.TryGetComponent<Holdable>(out currentObject);
+        currentObject = current.GetComponent<Holdable>();
         holding = currentObject != null;
 
         if(holding){
@@ -84,27 +92,19 @@ public class ObjectHolder : MonoBehaviour
     }
 
     private void SetPositionOfObject(){
-        
-        Vector2 directionV2 = ((Vector2)mouseToWorld - (Vector2)currentObject.transform.position);
+        Vector3 direction = (mouseToWorld - currentObject.transform.position).normalized;
+        float distance = (mouseToWorld - currentObject.transform.position).magnitude;
+        Vector3 force = direction * forceMultiplier;
+ 
+        currentBody.AddForce(new Vector3(force.x,force.y,force.z) * distance);
+    }
 
-        Vector2 direction = directionV2.normalized;
-        Vector2 force = Vector2.zero;
-        
-        float distance = directionV2.magnitude;
-        force = direction * (distance * forceMultiplier);
-
-        currentBody.AddForce(new Vector3(force.x,force.y,0));
-        currentBody.MovePosition(new Vector3(currentBody.position.x,currentBody.position.y,distanceFromCamera));
+    public  void FixedUpdate(){
+        if(holding)
+            SetPositionOfObject();
     }
 
     public void Update(){
-        if(holding)
-            SetPositionOfObject();
-
         mouseToWorld = GetMousePosWorld(mousePixels);
-    }
-
-    private void Awake(){
-        distanceFromCamera = allowedZMin;
     }
 }

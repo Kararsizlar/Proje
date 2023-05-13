@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5c64dfa90b26745b62db22f54890f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  successRate: 0
   target: {fileID: 174536816}
   currentExport: {fileID: 1270508292}
   multipliers:
@@ -224,6 +225,10 @@ MonoBehaviour:
   potionUI: {fileID: 1820549413}
   customerCamera: {fileID: 1057207398}
   customerUI: {fileID: 1122212964}
+  calculator: {fileID: 136474177}
+  failRate: 30
+  successRate: 70
+  afterGameTime: 1
   customer: {fileID: 0}
   cutscene: 0
   potionComplete: 0
@@ -263,8 +268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 1636935306}
   machine: {fileID: 176299679}
-  minDistanceToTrigger: 3
-  currentItem: {fileID: 0}
 --- !u!54 &176299674
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -565,8 +568,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 1636935306}
   machine: {fileID: 273321756}
-  minDistanceToTrigger: 3
-  currentItem: {fileID: 0}
 --- !u!54 &273321751
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -654,8 +655,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273321749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0.5, z: 14.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2, y: 1.5, z: 14.25}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1726689628}
@@ -918,8 +919,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 1636935306}
   machine: {fileID: 596587360}
-  minDistanceToTrigger: 3
-  currentItem: {fileID: 0}
 --- !u!54 &596587362
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1100,6 +1099,18 @@ MonoBehaviour:
       - m_Target: {fileID: 136474177}
         m_TargetAssemblyTypeName: PotionSuccessCalculator, Assembly-CSharp
         m_MethodName: Calculate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 174536816}
+        m_TargetAssemblyTypeName: GameMaster, Assembly-CSharp
+        m_MethodName: EndGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2287,8 +2298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 1636935306}
   machine: {fileID: 1281015968}
-  minDistanceToTrigger: 3
-  currentItem: {fileID: 0}
 --- !u!54 &1281015970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2452,6 +2461,7 @@ GameObject:
   - component: {fileID: 1612190742}
   - component: {fileID: 1612190741}
   - component: {fileID: 1612190740}
+  - component: {fileID: 1612190743}
   m_Layer: 0
   m_Name: PotionCamera
   m_TagString: MainCamera
@@ -2466,14 +2476,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612190738}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.09, z: -5}
+  m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
+  m_LocalPosition: {x: 9, y: 9.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1053055711}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -45, z: 0}
 --- !u!114 &1612190740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2558,6 +2568,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1612190743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612190738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1636935304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,23 +2628,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f168921631ac04a9303a595fe1afd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromCamera: 0
   mouseToWorld: {x: 0, y: 0, z: 0}
   currentObject: {fileID: 0}
   currentBody: {fileID: 0}
   holding: 0
   mousePixels: {x: 0, y: 0}
   mouseChange: {x: 0, y: 0}
-  clicking: 0
-  allowedZMin: 1
-  allowedZMax: 15
   raycastManager: {fileID: 484496450}
   holdableMask:
     serializedVersion: 2
     m_Bits: 448
+  ignoreHoldable:
+    serializedVersion: 2
+    m_Bits: 439
   cameraObject: {fileID: 1612190742}
-  forceMultiplier: 3
-  zAxisMultiplier: 0.5
+  forceMultiplier: 10
+  yExtraHeight: 2.5
 --- !u!1001 &1652788974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2626,6 +2651,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1122212965}
     m_Modifications:
+    - target: {fileID: 5387932152907513472, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5387932152907513476, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
       propertyPath: gameMaster
       value: 
@@ -2638,6 +2667,10 @@ PrefabInstance:
       propertyPath: titleShower
       value: 
       objectReference: {fileID: 777060124}
+    - target: {fileID: 5387932152907513476, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
+      propertyPath: personSprite
+      value: 
+      objectReference: {fileID: 928152380}
     - target: {fileID: 5387932152907513476, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
       propertyPath: dialogueShower
       value: 
@@ -2688,6 +2721,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5387932152907513477, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387932152907513478, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387932152907513479, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387932152907513483, guid: 2034601f621fb934bbb70cfd87e392ee, type: 3}
@@ -3126,8 +3167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 1636935306}
   machine: {fileID: 2036174800}
-  minDistanceToTrigger: 3
-  currentItem: {fileID: 0}
 --- !u!54 &2036174802
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -9,6 +9,9 @@ public class GameMaster : MonoBehaviour
     [SerializeField] DialoguePlayer dialoguePlayer;
     [SerializeField] GameObject potionCamera,potionUI;
     [SerializeField] GameObject customerCamera,customerUI;
+    [SerializeField] PotionSuccessCalculator calculator;
+    [SerializeField] float failRate,successRate;
+    [SerializeField] float afterGameTime;
 
     [Header("In-Game Data, Don't Edit!")]
     public Customer customer;
@@ -24,8 +27,28 @@ public class GameMaster : MonoBehaviour
         ShowPotionTable();
     }
 
-    private void EndGame(){
+    private IEnumerator IEndGame(){
+        ShowCustomer();
+        yield return new WaitForSeconds(afterGameTime);
+        float rate = calculator.successRate;
 
+        if(rate < failRate)
+            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndFail,true);
+        else if(rate > successRate)
+            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndSuccess,true);
+        else
+            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndMid,true);
+        
+        yield return new WaitForSeconds(3f);
+        ReturnToLobby();
+    }
+
+    public void EndGame(){
+        StartCoroutine(IEndGame());
+    }
+
+    private void ReturnToLobby(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 
     private IEnumerator WaitUntilCutsceneComplete(string functionToRun){
