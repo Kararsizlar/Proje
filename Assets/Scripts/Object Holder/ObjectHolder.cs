@@ -7,93 +7,106 @@ public class ObjectHolder : MonoBehaviour
 {
     [Header("In-Game data, don't edit!")]
     [SerializeField] Vector3 mouseToWorld;
-    public Holdable currentObject = null;
+    public GameObject selectedObject;
+    public ItemContainer currentHoldable = null;
     public Rigidbody currentBody = null;
     public bool holding = false;
 
     [Header("Mouse Data")]
     [SerializeField] Vector2 mousePixels = Vector2.zero;
-    [SerializeField] Vector2 mouseChange = Vector2.zero;
 
     [Header("Pre-Game Data")]
     [SerializeField] RaycastManager raycastManager;
-    [SerializeField] LayerMask holdableMask,ignoreHoldable;
     [SerializeField] Camera cameraObject;
     [SerializeField] float forceMultiplier;
     [SerializeField] float yExtraHeight;
+    [SerializeField] LayerMask ignoreHoldable;
 
     public void GetMousePos(InputAction.CallbackContext context){
         Vector2 newValue = context.ReadValue<Vector2>();
-        mouseChange = newValue - mousePixels;
         mousePixels = newValue;
     }
 
-    public void GetClick(InputAction.CallbackContext context){
-        if(context.started && holding == false)
-            GetSelectedObject();
-        else if(context.started && holding == true)
-            StartCoroutine(LetGoOfObject());
+    private void Hold(GameObject newObject){
+        selectedObject = newObject;
+        currentHoldable = selectedObject.GetComponent<ItemContainer>();
+        currentBody = newObject.GetComponent<Rigidbody>();
+        holding = true;
+
+        currentBody.useGravity = false;
     }
 
-    private IEnumerator LetGoOfObject(){
-        yield return new WaitForEndOfFrame();
-        holding = false;  
-        
-        if(currentBody == null)
-            yield break;
-        
-        currentBody.useGravity = true;
-        currentObject = null;
-        currentBody = null;
+    public void GetClick(InputAction.CallbackContext context){
+
+        if(!context.started)
+            return;
+
+        GameObject selected = GetSelectedObject();
+        if(selected == null){
+            LetGoOfObject(false);
+            return;
+        }
+
+
+        if(selected.layer == 6)//Holdable
+        {
+            if(holding)
+                LetGoOfObject(true);
+
+            Hold(selected);
+            return;
+        }
+
+        if(selected.layer == 7)//Machine
+        {
+            Machine selectedMachine = selected.GetComponent<Machine>();
+            if(holding)   
+                selectedMachine.OnNewItem();
+            else{
+                GameObject outputObject = selectedMachine.GenerateOutput();
+                if(outputObject != null)
+                    Hold(outputObject);
+            }
+            return;
+        }
+
+        if(holding)
+            LetGoOfObject(false);
+    }
+
+    public void LetGoOfObject(bool isReplacing){
+        holding = isReplacing;
+
+        if(currentBody != null)
+            currentBody.useGravity = true;
+
+        if(!holding){
+            currentHoldable = null;
+            currentBody = null;
+            selectedObject = null;
+        }
     }
 
     private Vector3 GetMousePosWorld(Vector2 input){
-        
-        Vector3 GetRegularMousePos(){
-            Vector3 v = new Vector3(input.x,input.y,cameraObject.nearClipPlane);
-            return cameraObject.ScreenToWorldPoint(v);
-        }
+        RaycastHit hit;
+        Ray ray = cameraObject.ScreenPointToRay(new Vector3(input.x,input.y,0));
+        Vector3 start = cameraObject.transform.position;
 
-        Vector3 GetTargetPosForHolding(){
-            RaycastHit hitInfo = new RaycastHit();
-            Vector3 camPos = cameraObject.transform.position;
-            Vector3 direction = GetRegularMousePos() - camPos;
-            Physics.Raycast(camPos,direction,out hitInfo,Mathf.Infinity,ignoreHoldable);
-
-            Vector3 hitPos = hitInfo.point;
-            Transform hitTransform = hitInfo.transform;
-                
-            return new Vector3(hitPos.x,hitInfo.transform.position.y + yExtraHeight,hitPos.z);
-        }
-
-        Vector3 mouseVector3;
-        if(holding){
-            mouseVector3 = GetTargetPosForHolding();
-            return mouseVector3;
-        }
+        if(!holding)
+            Physics.Raycast(start,ray.direction,out hit,Mathf.Infinity);
         else
-            return GetRegularMousePos();
+            Physics.Raycast(start,ray.direction,out hit,Mathf.Infinity,ignoreHoldable);
+
+        return hit.point;
     }
 
-    public void GetSelectedObject(){   
-        RaycastHit[] value = null;
-        GameObject current = raycastManager.GetObjectFromCamera(mouseToWorld,out value,Mathf.Infinity,holdableMask);
-
-        if(current == null)
-            return;
-
-        currentObject = current.GetComponent<Holdable>();
-        holding = currentObject != null;
-
-        if(holding){
-            currentBody = currentObject.GetComponent<Rigidbody>(); 
-            currentBody.useGravity = false;
-        }
+    public GameObject GetSelectedObject(){
+        return raycastManager.GetObjectFromCamera(mouseToWorld,250,holding);
     }
 
     private void SetPositionOfObject(){
-        Vector3 direction = (mouseToWorld - currentObject.transform.position).normalized;
-        float distance = (mouseToWorld - currentObject.transform.position).magnitude;
+        Vector3 direction = (mouseToWorld - selectedObject.transform.position).normalized;
+        float distance = (mouseToWorld - selectedObject.transform.position).magnitude;
         Vector3 force = direction * forceMultiplier;
  
         currentBody.AddForce(new Vector3(force.x,force.y,force.z) * distance);

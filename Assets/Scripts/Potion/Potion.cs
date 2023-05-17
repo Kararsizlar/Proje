@@ -6,5 +6,5 @@ using UnityEngine;
 public class Potion
 {
     public string potionName;
-    public List<ItemEffect> items  = new List<ItemEffect>();
+    public List<ItemContainer> items = new List<ItemContainer>();
 }

@@ -14,62 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerName: Anne
   levelSelectImage: {fileID: 21300000, guid: 209c36134fd2aaf4184a7d7a99471c0b, type: 3}
-  targetPotion:
-    potionName: Sahte kan iksiri
-    items:
-    - strength: 2
-      effect: 1
-    - strength: 4
-      effect: 1
-    - strength: 8
-      effect: 1
+  requirements:
+  - item: {fileID: 11400000, guid: f9da587dcae2b084da5d5726ea51ade1, type: 2}
+    checkType: 0
+    itemType: 2
+  - item: {fileID: 11400000, guid: 9890db3071289c84ba8f6664f3d39184, type: 2}
+    checkType: 0
+    itemType: 3
+  bodySprites:
+    defaultSprite: {fileID: 21300000, guid: a1dc54b7efefb794ba0c53860ead3a78, type: 3}
+    happySprite: {fileID: 21300000, guid: acd2391457915434a9228af430782bb4, type: 3}
+    angrySprite: {fileID: 21300000, guid: ab8cd3dbda1c4504c82e2bc10730beba, type: 3}
+    sadSprite: {fileID: 21300000, guid: 209c36134fd2aaf4184a7d7a99471c0b, type: 3}
+    shockedSprite: {fileID: 21300000, guid: 6023768df02081e4cbfcc2e37666ed1f, type: 3}
   customerDialogueAtStart:
     sentenceData:
     - sentence: 'Anne 1
 
         saddsasaddsasaddsadsa'
       personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: ab8cd3dbda1c4504c82e2bc10730beba, type: 3}
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 0
     - sentence: "Kar\u015F\u0131 cevap 1\nadsadssadsaddsadsad"
       personTalking: "\u0130ksirci"
-      personClip: {fileID: 8300000, guid: 293b7e8924b7edd4e804b806dabf1bd3, type: 3}
-      personSprite: {fileID: 21300000, guid: a1dc54b7efefb794ba0c53860ead3a78, type: 3}
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
     - sentence: 'Anne 2
 
         asdsadouasoudbasdsoad'
       personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: a1dc54b7efefb794ba0c53860ead3a78, type: 3}
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
     - sentence: "Kar\u015F\u0131 2\nasdsadouasoudbasdsoad"
       personTalking: "\u0130ksirci"
-      personClip: {fileID: 8300000, guid: 293b7e8924b7edd4e804b806dabf1bd3, type: 3}
-      personSprite: {fileID: 21300000, guid: ab8cd3dbda1c4504c82e2bc10730beba, type: 3}
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 3
   customerDialogueAtEndFail:
     sentenceData:
     - sentence: Aaaaa berbat bir iksir senden nefret ediyorum
       personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: 6023768df02081e4cbfcc2e37666ed1f, type: 3}
-  customerDialogueAtEndMid:
-    sentenceData:
-    - sentence: "Eh fena de\u011Fil"
-      personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: ab8cd3dbda1c4504c82e2bc10730beba, type: 3}
-    - sentence: "Yine G\xF6r\xFC\u015F\xFCr\xFCz."
-      personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: a1dc54b7efefb794ba0c53860ead3a78, type: 3}
-    - sentence: "OHA \xE7ok iyi bu bana hemen tarifi ver"
-      personTalking: Anne
-      personClip: {fileID: 8300000, guid: bfa2103ceb08ecc49b95a9d3d71974be, type: 3}
-      personSprite: {fileID: 21300000, guid: acd2391457915434a9228af430782bb4, type: 3}
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 0
   customerDialogueAtEndSuccess:
     sentenceData:
-    - sentence: 
-      personTalking: 
-      personClip: {fileID: 0}
-      personSprite: {fileID: 0}
+    - sentence: "\xC7ok g\xFCzel bir iskir"
+      personTalking: anne
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 0
+    - sentence: "sa\u011Fol"
+      personTalking: anne
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
   charSpeedPerSecondInDialogueBox: 22
-  charSoundRepeatRate: 0.095
+  charSoundRepeatRate: 0.12

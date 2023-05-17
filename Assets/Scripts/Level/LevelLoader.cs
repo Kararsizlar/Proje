@@ -18,9 +18,7 @@ public class LevelLoader : MonoBehaviour
         
         if(debug == false)
             customerData = GameObject.Find(loadObjectName).GetComponent<CustomerContainer>().customer;
-
-        print($"Loading {customerData.customerName}!");
-
+            
         dialoguePlayer.currentCustomer = customerData;
 
         gameMaster.customer = customerData;

@@ -4,69 +4,59 @@ using UnityEngine;
 
 public class Cauldron : Machine
 {
-    public Potion currentPotion;
+    public ObjectHolder holder;
+    public GameObject currentPotion;
+    private bool exported = true;
 
-    private void AddToPotion(List<ItemEffect> effects){
-        foreach (ItemEffect effect in effects)
-        {
-            AddToPotion(effect);    
-        }
+    private void AddToPotion(ItemContainer holdable){
+        ItemContainer copy = currentPotion.AddComponent<ItemContainer>();
+
+        copy.item = holdable.item;
+        copy.itemType = holdable.itemType;
+        currentPotion.GetComponent<PotionContainer>().potion.items.Add(copy);
+
+        Destroy(holder.selectedObject);
+        holder.LetGoOfObject(false); 
     }
     
-    private void AddToPotion(ItemEffect item){
-        ItemEffect itemEffect = GetEffect(item.effect);
-
-        if(itemEffect != null)
-            itemEffect.strength += item.strength;
-        else{
-            ItemEffect newEffect = new ItemEffect();
-            newEffect.effect = item.effect;
-            newEffect.strength = item.strength;
-            currentPotion.items.Add(newEffect);
-        }
-    }
-    
-    private ItemEffect GetEffect(Effect effect){
-        
-        if(currentPotion.items.Count == 0)
+    private ItemContainer GetPotionItem(ItemContainer item){
+        Potion p = currentPotion.GetComponent<PotionContainer>().potion;
+        if(p.items.Count == 0)
             return null;
 
-        foreach (ItemEffect i in currentPotion.items)
+        foreach (ItemContainer holdable in p.items)
         {
-            if(i.effect == effect)
-                return i;
+            if(holdable.item == item.item)
+                return holdable;
         }
 
         return null;
     }
 
-    public override void OnNewItem(MonoItem newItem)
+    public override void OnNewItem()
     {
-        if(newItem.item.effects.Count == 0){
-            Debug.LogWarning("This item has no effect?");
+        if(holder.currentHoldable == null)
             return;
+        
+        if(exported == true){
+            currentPotion = Instantiate(outputPrefab);
+            exported = false;
         }
 
-        if(newItem.item.effects.Count == 1)
-            AddToPotion(newItem.item.effects[0]);
-        else
-            AddToPotion(newItem.item.effects);
-
-        Destroy(newItem.gameObject);
+        AddToPotion(holder.currentHoldable);
     }
 
     public override GameObject GenerateOutput()
     {
+        if(output == null)
+            return null;
+
         Vector3 outputPos = outputDistanceToMachine + transform.position;
-        GameObject outputObject = Instantiate(outputPrefab,outputPos,Quaternion.identity);
-        PotionContainer potionContainer = outputObject.GetComponent<PotionContainer>();
-
-        potionContainer.potion.items = currentPotion.items;
-        potionContainer.potion.potionName = currentPotion.potionName;
-        return outputObject;
-    }
-
-    private void Awake(){
-        currentPotion = new Potion();
+        currentPotion.transform.position = outputPos;
+        currentPotion.GetComponent<Rigidbody>().useGravity = true;
+        currentPotion.GetComponent<MeshCollider>().enabled = true;
+        currentPotion.GetComponent<MeshRenderer>().enabled = true;
+        exported = true;
+        return currentPotion;
     }
 }

@@ -5,26 +5,30 @@ using UnityEngine;
 public class OneTypeConverter : Machine
 {
     public bool occupied;
-    [SerializeField] Item input;
-    [SerializeField] MonoItem output;
+
 
     [Header("Machine Data")]
+    [SerializeField] ObjectHolder holder;
     [SerializeField] ItemType allowedState;
     [SerializeField] ItemType targetState;
     [SerializeField] float timeToConvert;
 
+    [SerializeField] ItemContainer container;
     [SerializeField] string outputName;
     [SerializeField] Mesh outputMesh;
 
-    private MonoItem CreateMono(){
-        MonoItem newItem = gameObject.AddComponent<MonoItem>();
-        newItem.item = input;
-        newItem.currentState = targetState;
-        return newItem;
+    private ItemContainer CreateContainer(ItemContainer holdable){
+        holder.holding = false;
+        container.item = holdable.item;
+        container.itemType = targetState;
+
+        Destroy(holder.selectedObject);
+        holder.LetGoOfObject(false);
+        return container;
     }
 
     public void Wait(){
-        print($"Converted! new state is {output.currentState}.");
+        print($"Converted! new state is {output.itemType}.");
         occupied = false;
     }
 
@@ -37,11 +41,10 @@ public class OneTypeConverter : Machine
         GameObject outputObject = Instantiate(outputPrefab,outputPos,Quaternion.identity);
         GenerateCollider();
         outputObject.GetComponent<MeshRenderer>().material = output.item.itemMaterial;
-        MonoItem mono = outputObject.GetComponent<MonoItem>();
-        mono.item = output.item;
-        mono.currentState = output.currentState;
+        ItemContainer holdable = outputObject.GetComponent<ItemContainer>();
+        holdable.item = output.item;
+        holdable.itemType = targetState;
 
-        input = null;
         output = null;
         return outputObject;
 
@@ -49,7 +52,7 @@ public class OneTypeConverter : Machine
             MeshCollider collider = outputObject.AddComponent<MeshCollider>();
             MeshFilter meshFilter = outputObject.GetComponent<MeshFilter>();
 
-            Mesh m = output.currentState == ItemType.solid ? output.item.solidMesh : outputMesh;
+            Mesh m = output.itemType == ItemType.solid ? output.item.solidMesh : outputMesh;
             collider.sharedMesh = m;
             meshFilter.mesh = m;
 
@@ -57,27 +60,26 @@ public class OneTypeConverter : Machine
         }
     }
 
-    public override void OnNewItem(MonoItem newItem)
+    public override void OnNewItem()
     {
-        if(input != null){
+        if(occupied){
             print("Can't Convert, occupied.");
             return;
         }
 
-        if(allowedState != newItem.currentState){
-            print($"Can't convert this, wrong state. Current state is: {newItem.currentState}");
+        if(allowedState != holder.currentHoldable.itemType){
+            print($"Can't convert this, wrong state. Current state is: {holder.currentHoldable.itemType}");
             return;
         }
 
-        if(Item.CheckAllow(newItem.item,targetState) == false){
+        if(Item.CheckAllow(holder.currentHoldable.item,targetState) == false){
             print($"This object can't be converted to {targetState}");
             return;
         }
 
-        input = newItem.item;
-        output = CreateMono();
+        output = CreateContainer(holder.currentHoldable);
         occupied = true;
-        Destroy(newItem.gameObject);
+
         Invoke("Wait",timeToConvert);
     }
 }
