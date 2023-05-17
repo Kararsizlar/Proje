@@ -30,14 +30,12 @@ public class GameMaster : MonoBehaviour
     private IEnumerator IEndGame(){
         ShowCustomer();
         yield return new WaitForSeconds(afterGameTime);
-        float rate = calculator.successRate;
+        float rate = calculator.GetSuccessPercentage(customer);
 
         if(rate < failRate)
             dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndFail,true);
-        else if(rate > successRate)
-            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndSuccess,true);
         else
-            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndMid,true);
+            dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndSuccess,true);
         
         yield return new WaitForSeconds(3f);
         ReturnToLobby();

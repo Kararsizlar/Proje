@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 117129475276240151}
   - component: {fileID: 117129475276240150}
   - component: {fileID: 117129475276240148}
-  - component: {fileID: 117129475276239594}
-  - component: {fileID: -7330679231229920693}
+  - component: {fileID: 4168710893662822870}
   m_Layer: 6
-  m_Name: Carryable
+  m_Name: CarryablePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &117129475276239594
+--- !u!114 &4168710893662822870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,21 +110,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 117129475276240147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1663cafc4b3d1740a676b9a71136dc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 00564a43d2272b14995a7711cb73ab74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  currentState: 0
---- !u!114 &-7330679231229920693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117129475276240147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a39c093774664408bcb55fa59ab85b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 117129475276239594}
+  itemType: 0

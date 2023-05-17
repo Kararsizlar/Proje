@@ -73,7 +73,7 @@ public class DialoguePlayer : MonoBehaviour
         string currentString = "";
         SetText(currentString);
         titleShower.text = activeDialoguePiece.personTalking;
-        personSprite.sprite = activeDialoguePiece.personSprite;
+        personSprite.sprite = currentCustomer.bodySprites.GetSprite(activeDialoguePiece.personSprite); 
 
         foreach (char character in sentence)
         {

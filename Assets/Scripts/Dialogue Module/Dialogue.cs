@@ -13,5 +13,5 @@ public class DialoguePiece{
     [Multiline] public string sentence;
     public string personTalking;
     public AudioClip personClip;
-    public Sprite personSprite;
+    public BodySprite personSprite;
 }

@@ -9,7 +9,6 @@ public class Item : ScriptableObject
     public ItemType defaultType;
 
     public ItemFlags possibleStateFlags;
-    public List<ItemEffect> effects;
     
     public Material itemMaterial;
     public Mesh solidMesh;

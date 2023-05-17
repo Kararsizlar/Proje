@@ -2351,41 +2351,41 @@ MonoBehaviour:
   title: {fileID: 1272947849}
   titleStart: {x: 0, y: 850, z: 0}
   titleTarget: {x: 0, y: 270, z: 0}
-  titleTime: 2
-  titleHideTime: 1
+  titleTime: 0.5
+  titleHideTime: 0.25
   level: {fileID: 1511744800}
   levelStart: {x: -2360, y: -540, z: 0}
   levelTarget: {x: -950, y: -540, z: 0}
-  levelTime: 3
+  levelTime: 0.25
   levelTitle: {fileID: 186860122}
   levelTitleStart: {x: 0, y: 850, z: 0}
   levelTitleTarget: {x: 0, y: 355, z: 0}
-  levelTitleTime: 2
+  levelTitleTime: 0.25
   creditTitle: {fileID: 1808766491}
   creditTitleStart: {x: 0, y: 850, z: 0}
   creditTitleTarget: {x: 0, y: 270, z: 0}
-  creditTitleTime: 1
+  creditTitleTime: 0.25
   names: {fileID: 1052647145}
   namesStart: {x: 0, y: -1200, z: 0}
   namesTarget: {x: 0, y: 0, z: 0}
-  namesTime: 0.5
+  namesTime: 0.25
   customer: {fileID: 1255111600}
   customerStart: {x: 1710, y: -500, z: 0}
   customerTarget: {x: 930, y: -500, z: 0}
-  customerTime: 3
+  customerTime: 0.25
   playButton: {fileID: 1419166533}
   settingButton: {fileID: 478978280}
   creditButton: {fileID: 2008558304}
   settings: {fileID: 617859856}
   settingsStart: {x: 0, y: 850, z: 0}
   settingsTarget: {x: 0, y: 270, z: 0}
-  settingsTime: 2
+  settingsTime: 0.25
   settingsPanel: {fileID: 1026093995}
   settingsPanelStart: {x: 0, y: -1220, z: 0}
   settingsPanelTarget: {x: 0, y: 0, z: 0}
-  settingsPanelTime: 2
-  timeForButtonsBefore: 1.5
-  timeBetweenEachButton: 0.75
+  settingsPanelTime: 0.25
+  timeForButtonsBefore: 0.25
+  timeBetweenEachButton: 0.25
   itemMover: {fileID: 386188164}
 --- !u!114 &386188164
 MonoBehaviour:
@@ -2987,8 +2987,8 @@ MonoBehaviour:
   button: {fileID: 478978276}
   buttonStart: {x: 500, y: -810, z: 0}
   buttonTarget: {x: 500, y: -220, z: 0}
-  buttonTime: 2.5
-  buttonHideTime: 1
+  buttonTime: 0.5
+  buttonHideTime: 0.5
   itemMover: {fileID: 386188164}
 --- !u!1 &479249658
 GameObject:
@@ -8161,8 +8161,8 @@ MonoBehaviour:
   button: {fileID: 1419166529}
   buttonStart: {x: -500, y: -810, z: 0}
   buttonTarget: {x: -500, y: -220, z: 0}
-  buttonTime: 2.5
-  buttonHideTime: 1
+  buttonTime: 0.5
+  buttonHideTime: 0.5
   itemMover: {fileID: 386188164}
 --- !u!1 &1445363263
 GameObject:
@@ -11269,8 +11269,8 @@ MonoBehaviour:
   button: {fileID: 2008558300}
   buttonStart: {x: 0, y: -810, z: 0}
   buttonTarget: {x: 0, y: -450, z: 0}
-  buttonTime: 2.5
-  buttonHideTime: 1
+  buttonTime: 0.5
+  buttonHideTime: 0.5
   itemMover: {fileID: 386188164}
 --- !u!1 &2033422253
 GameObject:

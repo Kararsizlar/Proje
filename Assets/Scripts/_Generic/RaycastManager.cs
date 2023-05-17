@@ -4,27 +4,44 @@ using UnityEngine;
 
 public class RaycastManager : MonoBehaviour
 {
-    [SerializeField] Camera currentCamera;
+    [SerializeField] LayerMask ignoreHoldable;
 
-    public GameObject GetObjectFromCamera(Vector3 endPos,out RaycastHit[] results,float distance,LayerMask mask){       
-        Vector3 startPoint = currentCamera.transform.position;
-        Vector3 direction = (endPos - startPoint).normalized;
+    public Vector3 test;
 
-        results = Physics.RaycastAll(startPoint,direction,distance,mask);
+    public GameObject GetObjectFromCamera(Vector3 endPos,float distance,bool holding){       
+        Collider[] results;
+        test = endPos;
 
+        if(holding == false)
+            results = Physics.OverlapSphere(endPos,0.1f);
+        else
+            results = Physics.OverlapSphere(endPos,0.1f,ignoreHoldable);
+        
         if(results.Length == 0)
             return null;
-        
-        GameObject clickedObject = results[0].collider.gameObject;
 
-        if(clickedObject.layer == 6 || clickedObject.layer == 8)//Holdable
-            return clickedObject;
+        if(results.Length == 1)
+            return results[0].gameObject;
         
-        if(clickedObject.layer == 7)
-            return clickedObject.GetComponent<Machine>().GenerateOutput();
+        else{
+            foreach (Collider collider in results)
+            {
+                if(collider.gameObject.layer == 6)
+                    return collider.gameObject;
+            }
 
-        
-        
-        return null; //unreachable, no problems
+            foreach (Collider collider in results)
+            {
+                if(collider.gameObject.layer == 7)
+                    return collider.gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    public void OnDrawGizmos(){
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(test,0.3f);
     }
 }

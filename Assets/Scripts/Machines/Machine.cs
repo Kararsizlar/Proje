@@ -9,7 +9,7 @@ public class Machine : MonoBehaviour
     public GameObject outputPrefab;
 
     [Header("In-Game Stats, Don't edit!")]
-    public GameObject outputObject;
+    public ItemContainer output;
 
 
     public virtual GameObject GenerateOutput(){
@@ -17,7 +17,7 @@ public class Machine : MonoBehaviour
         return null;
     }
 
-    public virtual void OnNewItem(MonoItem newItem){
+    public virtual void OnNewItem(){
         print("Default OnNewItem behaviour.");
     }
 }
