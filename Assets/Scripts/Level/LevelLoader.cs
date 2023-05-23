@@ -14,7 +14,7 @@ public class LevelLoader : MonoBehaviour
     [Header("In-Game Data, Don't edit!")]
     public Customer customerData;
 
-    private void Start(){
+    private void Awake(){
         
         if(debug == false)
             customerData = GameObject.Find(loadObjectName).GetComponent<CustomerContainer>().customer;

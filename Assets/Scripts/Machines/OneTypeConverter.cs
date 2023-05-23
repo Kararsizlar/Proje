@@ -28,7 +28,6 @@ public class OneTypeConverter : Machine
     }
 
     public void Wait(){
-        print($"Converted! new state is {output.itemType}.");
         occupied = false;
     }
 

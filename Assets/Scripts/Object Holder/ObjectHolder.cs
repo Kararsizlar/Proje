@@ -18,9 +18,15 @@ public class ObjectHolder : MonoBehaviour
     [Header("Pre-Game Data")]
     [SerializeField] RaycastManager raycastManager;
     [SerializeField] Camera cameraObject;
-    [SerializeField] float forceMultiplier;
+    [SerializeField] float speed;
     [SerializeField] float yExtraHeight;
+    [SerializeField] float smoothTime;
+    [SerializeField] float angleRate;
     [SerializeField] LayerMask ignoreHoldable;
+
+    private Vector3 velocity;
+    private float refAngle;
+    private float angle = 0;
 
     public void GetMousePos(InputAction.CallbackContext context){
         Vector2 newValue = context.ReadValue<Vector2>();
@@ -105,19 +111,22 @@ public class ObjectHolder : MonoBehaviour
     }
 
     private void SetPositionOfObject(){
-        Vector3 direction = (mouseToWorld - selectedObject.transform.position).normalized;
+        Vector3 extraYPos = mouseToWorld + new Vector3(0,yExtraHeight,0);
+        Vector3 direction = (extraYPos - selectedObject.transform.position).normalized;
         float distance = (mouseToWorld - selectedObject.transform.position).magnitude;
-        Vector3 force = direction * forceMultiplier;
- 
-        currentBody.AddForce(new Vector3(force.x,force.y,force.z) * distance);
-    }
+    
 
-    public  void FixedUpdate(){
-        if(holding)
-            SetPositionOfObject();
+        angle += angleRate * Time.deltaTime;
+        currentBody.MovePosition(Vector3.SmoothDamp(currentBody.position,extraYPos,ref velocity,smoothTime,speed));
+        currentBody.MoveRotation(Quaternion.Euler(angle,angle,angle));
+
+        if(angle >= 360)
+            angle = 0;
     }
 
     public void Update(){
         mouseToWorld = GetMousePosWorld(mousePixels);
+        if(holding)
+            SetPositionOfObject();
     }
 }

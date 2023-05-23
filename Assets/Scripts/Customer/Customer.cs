@@ -8,8 +8,12 @@ public class Customer : ScriptableObject
     [Header("Müşteri genel bilgileri")]
     public string customerName;
     public Sprite levelSelectImage;
-    public List<PotionRequirement> requirements;
     public CustomerBodySprites bodySprites;
+
+    [Header("Müşteri level verileri")]
+    public List<PotionRequirement> requirements;
+    public Book requirementBook;
+    public List<Item> closetItems;
 
     [Header("Müşteri başlangıç diyalogu")]
     public Dialogue customerDialogueAtStart;
