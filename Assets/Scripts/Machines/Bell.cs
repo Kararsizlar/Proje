@@ -6,8 +6,11 @@ using UnityEngine.EventSystems;
 public class Bell : MonoBehaviour , IPointerDownHandler
 {
     public GameMaster gameMaster;
+    public PotionGetterOnPlacement potionGetter;
 
     public void OnPointerDown(PointerEventData eventData){
-        gameMaster.EndGame();
+
+        if(potionGetter.eligible)
+            gameMaster.StartCoroutine(gameMaster.EndGame());
     }
 }

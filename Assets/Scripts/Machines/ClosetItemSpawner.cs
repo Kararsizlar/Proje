@@ -15,6 +15,7 @@ public class ClosetItemSpawner : MonoBehaviour
 
         //will edit.
         newGO.GetComponent<ItemContainer>().item = item;
+        newGO.GetComponent<ItemContainer>().original = true;
         newGO.GetComponent<MeshFilter>().mesh = item.solidMesh;
         newGO.GetComponent<MeshRenderer>().material = item.itemMaterial;
         MeshCollider m = newGO.AddComponent<MeshCollider>();

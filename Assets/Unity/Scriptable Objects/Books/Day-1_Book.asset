@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Day-1_Book
   m_EditorClassIdentifier: 
   sentences:
-  - 'Gereksinim 1
-
-'
-  - Gereksinim 2
-  - 'Gereksinim 3
-
-'
+  - "Min 3 sar\u0131msak"
+  - "Sar\u0131msaklar - Toz De\u011Fil"
+  - Min 1 limon
+  - "Limon - S\u0131v\u0131"
+  - Max Turp - 1
+  - "Turp - S\u0131v\u0131"

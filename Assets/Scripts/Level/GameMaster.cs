@@ -10,7 +10,8 @@ public class GameMaster : MonoBehaviour
     [SerializeField] GameObject potionCamera,potionUI;
     [SerializeField] GameObject customerCamera,customerUI;
     [SerializeField] PotionSuccessCalculator calculator;
-    [SerializeField] float failRate,successRate;
+    [SerializeField] string loadObjectName;
+    [SerializeField] float failRate;
     [SerializeField] float afterGameTime;
 
     [Header("In-Game Data, Don't Edit!")]
@@ -27,7 +28,7 @@ public class GameMaster : MonoBehaviour
         ShowPotionTable();
     }
 
-    private IEnumerator IEndGame(){
+    public IEnumerator EndGame(){
         ShowCustomer();
         yield return new WaitForSeconds(afterGameTime);
         float rate = calculator.GetSuccessPercentage(customer);
@@ -38,11 +39,8 @@ public class GameMaster : MonoBehaviour
             dialoguePlayer.GetNewDialogue(dialoguePlayer.currentCustomer.customerDialogueAtEndSuccess,true);
         
         yield return new WaitForSeconds(3f);
+        Destroy(GameObject.Find(loadObjectName));
         ReturnToLobby();
-    }
-
-    public void EndGame(){
-        StartCoroutine(IEndGame());
     }
 
     private void ReturnToLobby(){
@@ -60,7 +58,7 @@ public class GameMaster : MonoBehaviour
         while(potionComplete == false)
             yield return Time.deltaTime;
 
-        EndGame();
+        StartCoroutine(EndGame());
     }
 
     public void OnLoadComplete(){

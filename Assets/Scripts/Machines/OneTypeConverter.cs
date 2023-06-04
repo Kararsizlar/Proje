@@ -35,12 +35,12 @@ public class OneTypeConverter : Machine
     {
         if(occupied || output == null)
             return null;
-        
-        Vector3 outputPos = outputDistanceToMachine + transform.position;
+
         GameObject outputObject = Instantiate(outputPrefab,outputPos,Quaternion.identity);
         GenerateCollider();
         outputObject.GetComponent<MeshRenderer>().material = output.item.itemMaterial;
         ItemContainer holdable = outputObject.GetComponent<ItemContainer>();
+        holdable.original = false;
         holdable.item = output.item;
         holdable.itemType = targetState;
 

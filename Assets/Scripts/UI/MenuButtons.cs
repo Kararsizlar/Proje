@@ -18,4 +18,8 @@ public class MenuButtons : MonoBehaviour
     public void HideFromScreen(){
         StartCoroutine(itemMover.IMoveUI(button,buttonStart,buttonHideTime));
     }
+
+    public void Quit(){
+        Application.Quit();
+    }
 }

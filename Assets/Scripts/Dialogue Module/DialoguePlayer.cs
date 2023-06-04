@@ -47,7 +47,7 @@ public class DialoguePlayer : MonoBehaviour
 
     public void ShowDialogue(){
         activeDialoguePiece = dialoguesToShow.Dequeue();
-        StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
+        StartCoroutine(DialogueShower(activeDialoguePiece.sentence,activeDialoguePiece.customSprite));
         SetActiveTextBox(true);
     }
 
@@ -66,14 +66,30 @@ public class DialoguePlayer : MonoBehaviour
         textCanvas.blocksRaycasts = value;
     }
 
-    private IEnumerator DialogueShower(string sentence){
+    private IEnumerator DialogueShower(string sentence,Sprite customSprite){
         
         talking = true;
         StartCoroutine(PlaySoundWhileTalking());
         string currentString = "";
         SetText(currentString);
         titleShower.text = activeDialoguePiece.personTalking;
-        personSprite.sprite = currentCustomer.bodySprites.GetSprite(activeDialoguePiece.personSprite); 
+
+        if(customSprite != null){
+            personSprite.sprite = customSprite;
+            personSprite.color = new Color(1,1,1,1);
+        }
+        else{
+            Sprite s = currentCustomer.bodySprites.GetSprite(activeDialoguePiece.personSprite);
+            
+            if(s == null){
+                personSprite.sprite =  null;
+                personSprite.color = new Color(1,1,1,0);
+            }else{
+                personSprite.color = new Color(1,1,1,1);
+                personSprite.sprite = s;
+            }
+        }
+
 
         foreach (char character in sentence)
         {
@@ -98,7 +114,7 @@ public class DialoguePlayer : MonoBehaviour
         if(dialoguesToShow.Count > 0){
             activeDialoguePiece = dialoguesToShow.Dequeue();
             
-            StartCoroutine(DialogueShower(activeDialoguePiece.sentence));
+            StartCoroutine(DialogueShower(activeDialoguePiece.sentence,activeDialoguePiece.customSprite));
         }
         else{
             SetActiveTextBox(false);

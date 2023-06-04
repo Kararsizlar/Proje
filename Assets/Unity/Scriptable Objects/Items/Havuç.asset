@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaefb2db0147dd34ca0b48f091fc19f6, type: 3}
+  m_Name: "Havu\xE7"
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 0}
+  defaultType: 3
+  possibleStateFlags:
+    dustAllowed: 1
+    gasAllowed: 1
+    liquidAllowed: 1
+    solidAllowed: 1
+  nonSolidColor: {r: 0.4528302, g: 0.18498886, b: 0, a: 0.7294118}
+  itemMaterial: {fileID: -547459546746881665, guid: 7d32d5a3f1b4cb848bc091442bc5b4d1, type: 3}
+  solidMesh: {fileID: -2432090755550338912, guid: 43c65b707bc4d0240b16cbada5923190, type: 3}

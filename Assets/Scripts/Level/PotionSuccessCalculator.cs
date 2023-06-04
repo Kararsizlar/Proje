@@ -7,6 +7,7 @@ public class PotionSuccessCalculator : MonoBehaviour
     public float maxPointPerSuccess;
     public float pointForCorrectIngredientOnly;
     public float pointForCompleteFail;
+
     public PotionContainer container;
 
     private ItemContainer ExistsInPotion(Potion potion, Item target){
@@ -22,24 +23,90 @@ public class PotionSuccessCalculator : MonoBehaviour
 
     private float IsCheck(Potion potion,PotionRequirement requirement){
         ItemContainer exists = ExistsInPotion(potion,requirement.item);
-        if(exists == null)
+        if(exists == null){
             return pointForCompleteFail;
+        }
+
         
-        if(requirement.itemType == exists.itemType)
+        if(requirement.itemType == exists.itemType){
             return maxPointPerSuccess;
-        
+        }
         return pointForCorrectIngredientOnly;
     }
 
     private float IsNotCheck(Potion potion,PotionRequirement requirement){
         ItemContainer exists = ExistsInPotion(potion,requirement.item);
-        if(exists == null)
+        if(exists == null){
             return pointForCompleteFail;
-        
-        if(requirement.itemType != exists.itemType)
+        }
+    
+        if(requirement.itemType != exists.itemType){
             return maxPointPerSuccess;
-        
+        }
         return pointForCorrectIngredientOnly;
+    }
+
+    private float LessThan(Potion potion,PotionRequirement requirement){
+        ItemContainer exists = ExistsInPotion(potion,requirement.item);
+        int amountInPotion = 0;
+
+        if(exists == null){
+            return pointForCompleteFail;
+        }
+
+        foreach (ItemContainer item in potion.items)
+        {
+            if(item.item.name == exists.item.name){
+                amountInPotion++;
+            }
+
+        }
+
+        if(amountInPotion <= requirement.numberDataForNumRequirements){
+            return maxPointPerSuccess;
+        }
+        return pointForCorrectIngredientOnly; 
+    }
+
+    private float ExaclyNumber(Potion potion,PotionRequirement requirement){
+        ItemContainer exists = ExistsInPotion(potion,requirement.item);
+        int amountInPotion = 0;
+
+        if(exists == null){
+            return pointForCompleteFail;
+        }
+
+        foreach (ItemContainer item in potion.items)
+        {
+            if(item.item.name == exists.item.name)
+                amountInPotion++;
+        }
+
+        if(amountInPotion == requirement.numberDataForNumRequirements){
+            return maxPointPerSuccess;
+        }
+        
+        return pointForCorrectIngredientOnly; 
+    }
+
+    private float MoreThan(Potion potion,PotionRequirement requirement){
+        ItemContainer exists = ExistsInPotion(potion,requirement.item);
+        int amountInPotion = 0;
+        
+        if(exists == null){
+            return pointForCompleteFail;
+        }
+
+        foreach (ItemContainer item in potion.items)
+        {
+            if(item.item.name == exists.item.name)
+                amountInPotion++;
+        }
+
+        if(amountInPotion >= requirement.numberDataForNumRequirements){
+            return maxPointPerSuccess;
+        }
+        return pointForCorrectIngredientOnly;   
     }
 
     public float GetSuccessPercentage(Customer customer){
@@ -57,6 +124,15 @@ public class PotionSuccessCalculator : MonoBehaviour
                     break;
                 case PotionCorrrectnessCheckType.IsNot:
                     currentPoints += IsNotCheck(result,requirement);
+                    break;
+                case PotionCorrrectnessCheckType.Minimum:
+                    currentPoints += MoreThan(result,requirement);
+                    break;
+                case PotionCorrrectnessCheckType.ExactlyAt:
+                    currentPoints += ExaclyNumber(result,requirement);
+                    break;
+                case PotionCorrrectnessCheckType.Maximum:
+                    currentPoints += LessThan(result,requirement);
                     break;
                 default:
                     currentPoints += 0;
