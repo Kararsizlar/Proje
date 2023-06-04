@@ -40,6 +40,7 @@ public class MenuUIManager : MonoBehaviour
     [SerializeField] MenuButtons playButton;
     [SerializeField] MenuButtons settingButton;
     [SerializeField] MenuButtons creditButton;
+    [SerializeField] MenuButtons quitButton;
 
     [Header("Settings")]
     [SerializeField] RectTransform settings;
@@ -71,6 +72,8 @@ public class MenuUIManager : MonoBehaviour
         playButton.MoveToScreen();
         yield return new WaitForSeconds(timeBetweenEachButton);
         settingButton.MoveToScreen();
+        yield return new WaitForSeconds(timeBetweenEachButton);
+        quitButton.MoveToScreen();
         yield return new WaitForSeconds(settingButton.buttonTime);
         clickable = true;
     }
@@ -104,6 +107,7 @@ public class MenuUIManager : MonoBehaviour
         creditButton.HideFromScreen();
         playButton.HideFromScreen();
         settingButton.HideFromScreen();
+        quitButton.HideFromScreen();
     }
 
     private void HideLevel(){

@@ -14,4 +14,5 @@ public class DialoguePiece{
     public string personTalking;
     public AudioClip personClip;
     public BodySprite personSprite;
+    public Sprite customSprite;
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Machine : MonoBehaviour
 {
     [Header("Pre-Game Stats")]
-    public Vector3 outputDistanceToMachine;
+    public Vector3 outputPos;
     public GameObject outputPrefab;
 
     [Header("In-Game Stats, Don't edit!")]

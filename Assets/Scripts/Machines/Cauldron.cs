@@ -51,7 +51,6 @@ public class Cauldron : Machine
         if(output == null)
             return null;
 
-        Vector3 outputPos = outputDistanceToMachine + transform.position;
         currentPotion.transform.position = outputPos;
         currentPotion.GetComponent<Rigidbody>().useGravity = true;
         currentPotion.GetComponent<MeshCollider>().enabled = true;

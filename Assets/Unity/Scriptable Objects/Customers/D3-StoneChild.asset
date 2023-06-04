@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aece0d531f64f4249a2333fa342415ef, type: 3}
+  m_Name: D3-StoneChild
+  m_EditorClassIdentifier: 
+  customerName: Emily clark
+  levelSelectImage: {fileID: 21300000, guid: 209c36134fd2aaf4184a7d7a99471c0b, type: 3}
+  bodySprites:
+    defaultSprite: {fileID: 21300000, guid: a1dc54b7efefb794ba0c53860ead3a78, type: 3}
+    happySprite: {fileID: 21300000, guid: acd2391457915434a9228af430782bb4, type: 3}
+    angrySprite: {fileID: 21300000, guid: ab8cd3dbda1c4504c82e2bc10730beba, type: 3}
+    sadSprite: {fileID: 21300000, guid: 209c36134fd2aaf4184a7d7a99471c0b, type: 3}
+    shockedSprite: {fileID: 21300000, guid: 6023768df02081e4cbfcc2e37666ed1f, type: 3}
+  requirements:
+  - item: {fileID: 11400000, guid: b172f29982b87c54da5c87cd2b772ceb, type: 2}
+    checkType: 2
+    itemType: 0
+    numberDataForNumRequirements: 2
+  - item: {fileID: 11400000, guid: b172f29982b87c54da5c87cd2b772ceb, type: 2}
+    checkType: 0
+    itemType: 4
+    numberDataForNumRequirements: 0
+  - item: {fileID: 11400000, guid: 7467488e1e68510489dbcc6227277dc6, type: 2}
+    checkType: 4
+    itemType: 0
+    numberDataForNumRequirements: 3
+  - item: {fileID: 11400000, guid: 7467488e1e68510489dbcc6227277dc6, type: 2}
+    checkType: 0
+    itemType: 4
+    numberDataForNumRequirements: 0
+  - item: {fileID: 11400000, guid: f946102b718459f4281f18130f6cea82, type: 2}
+    checkType: 4
+    itemType: 0
+    numberDataForNumRequirements: 1
+  requirementBook: {fileID: 11400000, guid: 59d32fe464720d049a35d29060053800, type: 2}
+  closetItems:
+  - {fileID: 11400000, guid: b172f29982b87c54da5c87cd2b772ceb, type: 2}
+  - {fileID: 11400000, guid: 5dd395d907fc0cb4cbecf1a8277b2319, type: 2}
+  - {fileID: 11400000, guid: 7467488e1e68510489dbcc6227277dc6, type: 2}
+  - {fileID: 11400000, guid: f946102b718459f4281f18130f6cea82, type: 2}
+  - {fileID: 11400000, guid: dec82c13d4b08d8448b2d5d4ce6f5d75, type: 2}
+  - {fileID: 11400000, guid: 8605961d09136664989c0c694126f670, type: 2}
+  - {fileID: 11400000, guid: 32cddf6f14b61b748a244447e21335fa, type: 2}
+  - {fileID: 11400000, guid: 6a102a089cb9f6f4a9adf6d9a4cae897, type: 2}
+  - {fileID: 11400000, guid: 14914909dc3606244a4a5fb6d2285aa8, type: 2}
+  - {fileID: 11400000, guid: d4489830ad5ba6941a29fd18b652868a, type: 2}
+  - {fileID: 11400000, guid: 0ca214e6df69699428b4bf43326f500e, type: 2}
+  customerDialogueAtStart:
+    sentenceData:
+    - sentence: "Yard\u0131m edin \xE7ocu\u011Fum ta\u015Fa d\xF6n\xFC\u015Ft\xFC.
+        Sizin yard\u0131m \nedebilece\u011Finizi s\xF6ylediler. Elinizde Mandrake
+        varm\u0131\u015F."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 4
+      customSprite: {fileID: 0}
+    - sentence: Evet hemen getiriyorum.
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+  customerDialogueAtEndFail:
+    sentenceData:
+    - sentence: "Bebe\u011Fimin rengi mora d\xF6nmeye ba\u015Flad\u0131 inanm\u0131yorum!!!"
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 5
+      customSprite: {fileID: 0}
+    - sentence: ...
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 4
+      customSprite: {fileID: 0}
+    - sentence: "Hemen yard\u0131m bulmal\u0131y\u0131m. "
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 4
+      customSprite: {fileID: 0}
+  customerDialogueAtEndSuccess:
+    sentenceData:
+    - sentence: "\xC7ok te\u015Fekk\xFCr ederim bu arada benim ad\u0131m Emily. "
+      personTalking: Emily
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+    - sentence: Ben Gale.
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+    - sentence: "Elleri \xE7\xF6z\xFClmeye ba\u015Flad\u0131. O iyi olacak de\u011Fil
+        mi?"
+      personTalking: Emily
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+    - sentence: "K\u0131sa s\xFCrede normale d\xF6necek merak etmeyin."
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+  charSpeedPerSecondInDialogueBox: 22
+  charSoundRepeatRate: 0.12

@@ -16,7 +16,7 @@ public class ObjectHolder : MonoBehaviour
     [SerializeField] Vector2 mousePixels = Vector2.zero;
 
     [Header("Pre-Game Data")]
-    [SerializeField] RaycastManager raycastManager;
+    [SerializeField] ObjectCameraGetter raycastManager;
     [SerializeField] Camera cameraObject;
     [SerializeField] float speed;
     [SerializeField] float yExtraHeight;

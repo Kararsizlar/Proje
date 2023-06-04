@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aece0d531f64f4249a2333fa342415ef, type: 3}
+  m_Name: D4-WolfBoy
+  m_EditorClassIdentifier: 
+  customerName: Bowyer Fisher
+  levelSelectImage: {fileID: 21300000, guid: 6ecdac6613727a74280d49609b4c22d8, type: 3}
+  bodySprites:
+    defaultSprite: {fileID: 21300000, guid: 2cb63319473ea914e93af820378197dc, type: 3}
+    happySprite: {fileID: 21300000, guid: 6d7185c0b2280ba41a19b2cb1a967809, type: 3}
+    angrySprite: {fileID: 21300000, guid: 6ecdac6613727a74280d49609b4c22d8, type: 3}
+    sadSprite: {fileID: 21300000, guid: 60c6da13385da2942ac55b76efe3b6aa, type: 3}
+    shockedSprite: {fileID: 21300000, guid: 0c575e48ea757de4684c09d8e0d23746, type: 3}
+  requirements:
+  - item: {fileID: 0}
+    checkType: 0
+    itemType: 0
+    numberDataForNumRequirements: 0
+  requirementBook: {fileID: 11400000, guid: 5d5cf6face805f64c8fcbfbf743c3510, type: 2}
+  closetItems:
+  - {fileID: 11400000, guid: b172f29982b87c54da5c87cd2b772ceb, type: 2}
+  - {fileID: 11400000, guid: 5dd395d907fc0cb4cbecf1a8277b2319, type: 2}
+  - {fileID: 11400000, guid: 7467488e1e68510489dbcc6227277dc6, type: 2}
+  - {fileID: 11400000, guid: f946102b718459f4281f18130f6cea82, type: 2}
+  - {fileID: 11400000, guid: dec82c13d4b08d8448b2d5d4ce6f5d75, type: 2}
+  - {fileID: 11400000, guid: 8605961d09136664989c0c694126f670, type: 2}
+  - {fileID: 11400000, guid: 32cddf6f14b61b748a244447e21335fa, type: 2}
+  - {fileID: 11400000, guid: 6a102a089cb9f6f4a9adf6d9a4cae897, type: 2}
+  - {fileID: 11400000, guid: 14914909dc3606244a4a5fb6d2285aa8, type: 2}
+  - {fileID: 11400000, guid: d4489830ad5ba6941a29fd18b652868a, type: 2}
+  - {fileID: 11400000, guid: 0ca214e6df69699428b4bf43326f500e, type: 2}
+  customerDialogueAtStart:
+    sentenceData:
+    - sentence: "\u0130yi ak\u015Famlar!"
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 3
+      customSprite: {fileID: 0}
+    - sentence: ...
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 3
+      customSprite: {fileID: 0}
+    - sentence: "\u0130yi ak\u015Famlar ho\u015F geldiniz! Ne laz\u0131md\u0131?"
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "Sakinle\u015Ftirme iksiri var m\u0131 elinizde malum yar\u0131n
+        dolunay. "
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: 'Elinde delibal var diye duydum. '
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: Hemen geliyor.
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+  customerDialogueAtEndFail:
+    sentenceData:
+    - sentence: "Bu \u015Fey i\u011Fren\xE7! "
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 3
+      customSprite: {fileID: 0}
+  customerDialogueAtEndSuccess:
+    sentenceData:
+    - sentence: "Delibal\u0131n uyu\u015Fturucu etkisi oldu\u011Funu duymu\u015Ftum"
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 21300000, guid: d2af119ba56a53745ad2e31ff972485b, type: 3}
+    - sentence: "Her \u015Feyin az\u0131 ve \xE7o\u011Fu zarard\u0131r. Az miktarda
+        kullan\u0131nca iyi \nbir sakinle\u015Ftiricidir."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "Hakl\u0131s\u0131n ger\xE7ekten her \u015Feyin az\u0131 ve \xE7o\u011Fu
+        zarar."
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 21300000, guid: 37f185c170dfa0e4787e0be52e67812d, type: 3}
+    - sentence: "Bu olduk\xE7a iyi geldi. Te\u015Fekk\xFCr ederim..."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+    - sentence: Gale.
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 2
+      customSprite: {fileID: 0}
+    - sentence: "Te\u015Fekk\xFCrler Gale."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "Kurt adamlar\u0131n buna ihtiyac\u0131 oldu\u011Funu d\xFC\u015F\xFCnm\xFCyordum."
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: e45375e72a62a404bb84f30d5b36834c, type: 3}
+    - sentence: "Dolunayda kurta d\xF6n\xFC\u015Fmek ac\u0131 verici olabiliyor."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "Ger\xE7ekten k\xF6t\xFC kokuyorsun de\u011Fil mi Gale?"
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: 1023fb9ed8509ac469b4e99d4c905f7e, type: 3}
+    - sentence: "Asl\u0131nda o kadar k\xF6t\xFC koktu\u011Funu d\xFC\u015F\xFCnm\xFCyordum."
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: d2af119ba56a53745ad2e31ff972485b, type: 3}
+    - sentence: "Biz vampirler kurt adamlar\u0131n o kokusunu hemen al\u0131r\u0131z."
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: d2af119ba56a53745ad2e31ff972485b, type: 3}
+    - sentence: O kan iksiri mi?
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: Evet.
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: bbca4af27bb63e241b2e1c14f920ad13, type: 3}
+    - sentence: "\u0130kimizde t\xFCr\xFCm\xFCzden memnun de\u011Filiz galiba."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 3
+      customSprite: {fileID: 0}
+    - sentence: "Bencil olmak zorunda de\u011Filiz."
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: d2af119ba56a53745ad2e31ff972485b, type: 3}
+    - sentence: Evet.
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 4
+      customSprite: {fileID: 0}
+    - sentence: "San\u0131r\u0131m ben gitsem iyi olucak g\xF6r\xFC\u015F\xFCr\xFCz
+        Gale ve eee.."
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: d2af119ba56a53745ad2e31ff972485b, type: 3}
+    - sentence: "Kusura bakma ismi mi s\xF6ylemeyi unuttum. Bowyer."
+      personTalking: X
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "\u0130yi ak\u015Famlar Bowyer. "
+      personTalking: Edward
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 6
+      customSprite: {fileID: 21300000, guid: 37f185c170dfa0e4787e0be52e67812d, type: 3}
+    - sentence: "Buras\u0131 yeni a\xE7\u0131ld\u0131 galiba!"
+      personTalking: Bowyer
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "Evet yeni a\xE7\u0131ld\u0131."
+      personTalking: Gale
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: "\u0130ksir i\xE7in te\u015Fekk\xFCrler yar\u0131n i\xE7in beni idare
+        eder san\u0131r\u0131m. \u0130yi ak\u015Famlar!"
+      personTalking: Bowyer
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 1
+      customSprite: {fileID: 0}
+    - sentence: ...
+      personTalking: 
+      personClip: {fileID: 8300000, guid: fccaef4127e85d145b463b91b4fbd221, type: 3}
+      personSprite: 0
+      customSprite: {fileID: 0}
+  charSpeedPerSecondInDialogueBox: 20
+  charSoundRepeatRate: 10

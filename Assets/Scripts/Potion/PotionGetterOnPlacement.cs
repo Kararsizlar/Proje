@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PotionGetterOnPlacement : MonoBehaviour
 {
+    public bool eligible = false;
     public PotionContainer container;
 
     public void OnCollisionEnter(Collision collision){
@@ -15,6 +16,8 @@ public class PotionGetterOnPlacement : MonoBehaviour
             {
                 container.potion.items.Add(item);
             }
+
+            eligible = true;
         }
     }   
 }

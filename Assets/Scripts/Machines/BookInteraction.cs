@@ -32,7 +32,8 @@ public class BookInteraction : MonoBehaviour , IPointerDownHandler
 
     private void Initialize(){
         Customer c = gameMaster.customer;
-
+        initialized = true;
+        
         foreach (string directive in c.requirementBook.sentences)
         {
             GameObject newGO = Instantiate(prefab);
